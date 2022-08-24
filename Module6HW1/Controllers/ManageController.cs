@@ -9,51 +9,44 @@ namespace Module6HW1.Controllers
     public class ManageController : Controller
     {
         private readonly IMovieService _movieService;
-        private readonly IMovieStore _movieStore;
 
-        public ManageController(IMovieService movieService, IMovieStore movieStore)
+        public ManageController(IMovieService movieService)
         {
             _movieService = movieService;
-            _movieStore = movieStore;
         }
 
-        [HttpGet]
-        [Route("/GetByYear/{year}}")]
+        [HttpPost]
+        public IActionResult Post([FromBody] Movie movie)
+        {
+            var result = _movieService.CreateAsync(movie);
+            return Json(result);
+        }
+
+        [HttpGet("{year}")]
         public IActionResult GetMovieYearAsync([FromRoute] int year)
         {
             var result =  _movieService.GetByYear(year);
             return Json(result);
         }
 
-        [HttpGet]
-        [Route("/GetByName/{title}}")]
+        [HttpGet("{title}")]
         public IActionResult GetMovieTitleAsync([FromRoute] string title)
         {
             var result = _movieService.GetByName(title);
             return Json(result);
         }
 
-        [HttpPost]
-        [Route("/Add/{movie}}")]
-        public IActionResult Post([FromRoute] Movie movie)
-        {
-            var result = _movieStore.AddAsync(movie);
-            return Json(result);
-        }
-
         [HttpPut]
-        [Route("/Update/{movie}}")]
-        public IActionResult Put([FromRoute] Movie movie)
+        public IActionResult Put([FromBody] Movie movie)
         {
-            var result = _movieStore.EditAsync(movie);
+            var result = _movieService.UpdateAsync(movie);
             return Json(result);
         }
 
         [HttpDelete]
-        [Route("/Delete/{movie}}")]
-        public IActionResult Delete([FromRoute] Movie movie)
+        public IActionResult Delete([FromBody] Movie movie)
         {
-            var result = _movieStore.RemoveAsync(movie);
+            var result = _movieService.DeleteAsync(movie);
             return Json(result);
         }
     }

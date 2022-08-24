@@ -1,6 +1,7 @@
 using Module6HW1.Service;
+using Module6HW1.Store;
 using Module6HW1.Interface.Service;
-
+using Module6HW1.Interface.Store;
 namespace Module6HW1
 {
     public class Program
@@ -17,8 +18,11 @@ namespace Module6HW1
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddSingleton<MovieContext>();
             builder.Services.AddScoped<IMovieService, MovieService>();
-
+            builder.Services.AddSingleton<IMovieStore, MovieStore>();
+            
+         //   builder.Services.AddControllers();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -29,10 +33,15 @@ namespace Module6HW1
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
 
             app.UseAuthorization();
 
-
+            //app.MapControllerRoute(
+            //    name: "default",
+            //    pattern: "{controller=Home}/{id?}");
             app.MapControllers();
 
             app.Run();

@@ -37,6 +37,7 @@ namespace Module6HW1.Store
         {
             return _movieContext.Movie.ToList();
         }
+
         public IList<Movie> GetEntityTitle()
         {
             return _movieContext.Movie.ToList();

@@ -12,12 +12,5 @@
 
         public Genre Genre { get; set; }
 
-        public Movie(int id, string title, int year, int genreId)
-        {
-            Id = id;
-            Title = title;
-            Year = year;
-            GenreId = genreId;
-        }
     }
 }

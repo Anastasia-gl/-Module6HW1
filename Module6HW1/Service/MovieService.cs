@@ -11,6 +11,20 @@ namespace Module6HW1.Service
         {
             _movieStore = movieStore;
         }
+        public async Task CreateAsync(Movie movie)
+        {
+          await _movieStore.AddAsync(movie);
+        }
+
+        public async Task DeleteAsync(Movie movie)
+        {
+            await _movieStore.RemoveAsync(movie);
+        }
+
+        public async Task UpdateAsync(Movie movie)
+        {
+            await _movieStore.EditAsync(movie);
+        }
 
         public IList<Movie> GetByName(string title)
         {
